@@ -499,7 +499,7 @@ Write code on a whiteboard or paper, not a computer. Test with some sample input
 
 - ### Hash table
     - [ ] Videos:
-        - [ ] [Hashing with Chaining (video)](https://www.youtube.com/watch?v=0M_kIqhwbFo&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&index=8)
+        - [x] [Hashing with Chaining (video)](https://www.youtube.com/watch?v=0M_kIqhwbFo&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb&index=8)
         - [ ] [Table Doubling, Karp-Rabin (video)](https://www.youtube.com/watch?v=BRO7mVIFt08&index=9&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb)
         - [ ] [Open Addressing, Cryptographic Hashing (video)](https://www.youtube.com/watch?v=rvdJDijO2Ro&index=10&list=PLUl4u3cNGP61Oq3tWYp6V_F-5jb5L2iHb)
         - [ ] [PyCon 2010: The Mighty Dictionary (video)](https://www.youtube.com/watch?v=C4Kc8xzcA68)
@@ -528,10 +528,10 @@ Write code on a whiteboard or paper, not a computer. Test with some sample input
 ## More Knowledge
 
 - ### Binary search
-    - [ ] [Binary Search (video)](https://www.youtube.com/watch?v=D5SrAga1pno)
-    - [ ] [Binary Search (video)](https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search)
-    - [ ] [detail](https://www.topcoder.com/community/data-science/data-science-tutorials/binary-search/)
-    - [ ] Implement:
+    - [x] [Binary Search (video)](https://www.youtube.com/watch?v=D5SrAga1pno)
+    - [x] [Binary Search (video)](https://www.khanacademy.org/computing/computer-science/algorithms/binary-search/a/binary-search)
+    - [x] [detail](https://www.topcoder.com/community/data-science/data-science-tutorials/binary-search/)
+    - [x] Implement:
         - binary search (on sorted array of integers)
         - binary search using recursion
 
