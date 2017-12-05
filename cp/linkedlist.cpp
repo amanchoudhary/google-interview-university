@@ -62,6 +62,19 @@ struct node* reverse_linked_list(struct node *head)
 	return previous; 
 }
 
+void reverse_linked_list(struct node **root) 
+{	
+	struct node *head = (*root);
+	struct node *previous = NULL;
+
+	while (head != NULL) {
+		struct node *next = head -> next;
+		head -> next = previous;
+		previous = head;
+		head = next;
+	}
+	(*root) = previous;
+}
 
 void remove(struct node **head, int position) 
 {
@@ -110,6 +123,10 @@ int main()
 	head = reverse_linked_list(head);
 	print_linked_list(head);
 
+	reverse_linked_list(&head);
+	print_linked_list(head);
+
+	
 	cout << " --------------------------------------------------------------------- " << endl;
 	for (int i = 0; i < 5; i++) {
 		print_linked_list(head);
