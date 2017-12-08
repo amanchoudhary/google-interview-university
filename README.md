@@ -675,7 +675,7 @@ Write code on a whiteboard or paper, not a computer. Test with some sample input
         If you end up implementing red/black tree try just these:
         - search and insertion functions, skipping delete
     - I want to learn more about B-Tree since it's used so widely with very large data sets.
-    - [ ] [Self-balancing binary search tree](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree)
+    - [x] [Self-balancing binary search tree](https://en.wikipedia.org/wiki/Self-balancing_binary_search_tree)
 
     - [ ] **AVL trees**
         - In practice:
@@ -688,7 +688,7 @@ Write code on a whiteboard or paper, not a computer. Test with some sample input
         - [ ] [AVL Trees (video)](https://www.coursera.org/learn/data-structures/lecture/Qq5E0/avl-trees)
         - [ ] [AVL Tree Implementation (video)](https://www.coursera.org/learn/data-structures/lecture/PKEBC/avl-tree-implementation)
         - [ ] [Split And Merge](https://www.coursera.org/learn/data-structures/lecture/22BgE/split-and-merge)
-
+        - [x] [AVL Tree Basics](http://www.geeksforgeeks.org/avl-tree-set-1-insertion/)
     - [ ] **Splay trees**
         - In practice:
             Splay trees are typically used in the implementation of caches, memory allocators, routers, garbage collectors,
