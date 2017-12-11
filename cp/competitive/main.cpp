@@ -39,119 +39,92 @@
 #define INF (1<<28)
 using namespace std;
 
-int a[30009];
+int bit[300009];
 int n;
+int a[100009];
+int b[100009];
+map<int, int> m;
 
-struct node
+int get(int index)
 {
-	int value;
-};
-struct node s[100009];
-
-
-void init(int index, int x, int y)
-{
-	if (x >= n || x > y || y < 0) {
-		return;
+	int sum = 0;
+	while (index > 0) {
+		sum += bit[index];
+		index -= index & (-index);
+		if (sum >= mod) {
+			sum = sum%mod;
+		}
 	}
-
-	if (x == y) {
-		s[index].value = a[x];
-		return;
-	}
-
-	int mid = (x + y)/2;
-	init(2*index + 1, x, mid);
-	init(2*index + 2, mid+1, y);
-	s[index].value = min(s[2*index +1].value, s[2*index +2].value);
+	return sum;
 }
 
-int getleft(int index, int x, int y, int sx, int sy, int value)
-{	
-	cout << index << " " << x << " "<< y << endl;
-	if (x > y || sx > y || sy < x) {
-		return -1;
-	}
-
-	if (sx <= x && sy >= y) {
-		if (s[index].value >= value) {
-			return x;
+void put(int index, int value)
+{
+	while (index <= n) {
+		bit[index] += value;
+		if (bit[index] >= mod) {
+			bit[index] = bit[index]%mod;
 		}
-		int mid = (x+y)/2;
-		return getleft(2*index + 2, mid + 1, y, sx, sy, value); 
+		index += index & (-index);
 	}
-
-	int mid = (x + y)/2;
-	int leftresult = getleft(2*index  + 1, x, mid, sx ,sy, value);
-	int rightresult = getleft(2*index +2, mid+1, y, sx, sy, value);
-
-	if (leftresult == -1) {
-		return rightresult;
-	}
-	if (rightresult == -1) {
-		return -1;
-	}
-
-	return min(leftresult, rightresult);
 }
 
-int getright(int index, int x, int y, int sx, int sy, int value)
+void preprocess() 
 {
-	if (x > y || sx > y || sy < x) {
-		return -1;
-	}
-
-	if (sx <= x && sy >= y) {
-		if (s[index].value >= value) {
-			return y;
+	int i;
+	F(i, 0, n) b[i] = a[i];
+	sort(b, b+n);
+	int now = 1;
+	F(i, 0, n) {
+		int x = b[i];
+		if (m[x] != 0) {
+			continue;
 		}
-		int mid = (x+y)/2;
-		return getright(2*index + 1, x, mid, sx, sy, value); 
+		m[x] = now;
+		now++;
 	}
 
-	int mid = (x + y)/2;
-	int leftresult = getright(2*index  + 1, x, mid, sx ,sy, value);
-	int rightresult = getright(2*index +2, mid+1, y, sx, sy, value);
-	if (leftresult == -1) {
-		return -1;
+	F(i, 0, n) {
+		int x = a[i];
+		a[i] = m[x];
 	}
-	if (rightresult == -1) {
-		return leftresult;
-	}
-	return max(leftresult, rightresult);
 }
 
 int main()
 {
-	freopen("input.txt", "r", stdin);
+	//freopen("input.txt", "r", stdin);
 
 	int t,ii=1;
 	S(t);
 	while (t--) {
-		printf("Case %d:\n", ii++);
-		for (int i = 0; i < 100009; i++) {
-			s[i].value = 1000009;
-		}
-
+		printf("Case %d: ", ii++);
+		int i;
+		F (i, 0, 300009) bit[i] = 0;
 		S(n);
-		for (int i = 0; i < n; i++) {
-			S(a[i]);
+		F(i, 0, n) S(a[i]);
+		m.clear();
+
+		preprocess();
+
+		F(i, 0, n) {
+			int x = a[i];
+			int now = get(x-1);
+			put(x, now+1);
 		}
 
-		init(0, 0, n-1);
-		long long int result = 0;
-		cout << getleft(0, 0, n-1, 0, 5, a[5]) << endl;
-		return 0;
-		for (int i = 0; i < n; i++) {
-			int leftmost = getleft(0, 0, n-1, 0, i, a[i]);
-			int rightmost = getright(0, 0, n-1, i, n-1, a[i]);
-			cout << i << " " << a[i] << " ---> " << leftmost << " " << rightmost << endl;
-			int rows = (rightmost - leftmost + 1);
-			long long int area = ((long long int)rows) * ((long long int)a[i]);
-			result = max(result, area);
+		int result = 0;
+		map<int, int> :: iterator it;
+		for (it = m.begin(); it != m.end(); it++) {
+			int x = (*it).first;
+			int y = (*it).second;
+			int resultnow = get(y) - get(y-1);
+			if (resultnow < 0) resultnow += mod;
+			result += resultnow;
+			if (result >= mod) {
+				result = result%mod;
+			}
 		}
-		printf("%lld\n", result);
-
+		printf ("%d\n", result);
 	}
 
 
