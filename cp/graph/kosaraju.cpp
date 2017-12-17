@@ -41,7 +41,7 @@ void dfs1(int index, int counter)
 	}
 }
 
-void kosaraju() 
+int kosaraju() 
 {
 	for (int i = 0; i < n; i++) {
 		visited[i] = false;
@@ -58,11 +58,12 @@ void kosaraju()
 		dfs1(x, ii);
 		ii++;
 	}
+	return ii;
 }
 
 int main()
 {
-	freopen("input.txt", "r", stdin);
+//freopen("input.txt", "r", stdin);
 	int t;
 	S(t);
 
@@ -86,6 +87,9 @@ int main()
 			int x,y;
 			S(x);	S(y);
 			x--;	y--;
+			if (x == y) {
+				continue;
+			}
 			graph[x].push_back(y);
 			reversegraph[y].push_back(x);
 		}
@@ -97,9 +101,9 @@ int main()
 			dfs(i);
 		}
 
-		kosaraju();
+		int newn = kosaraju();
 
-		graphnow.clear();	graphnow.resize(n);
+		graphnow.clear();	graphnow.resize(newn);
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < graph[i].size(); j++) {
 				int x = i;
@@ -115,7 +119,7 @@ int main()
 			}
 		}
 
-		vector <int> inward(n, 0);
+		vector <int> inward(newn, 0);
 		for (int i = 0; i < graphnow.size(); i++) {
 			set<int> ss = graphnow[i];
 			set<int> :: iterator it;
