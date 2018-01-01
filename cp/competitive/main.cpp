@@ -1,154 +1,88 @@
 #include <iostream>
+#include <string>
+#include <cstring>
 #include <vector>
 #include <algorithm>
 #include <fstream>
-#include <set>
-
-#define S(x) scanf("%d",&x)
+#include <map>
+#include <queue>
 
 using namespace std;
 
-int n;
-vector <int> starttime;
-vector <int> endtime;
+#define S(x) scanf("%d",&x)
+#define S1(x) scanf("%lld",&x)
+#define mod 1000000007
+#define maxelement 1000000003
+#define minelement -1000000003
+#define ill long long int 
 
-struct node
+ill n,k,m;
+ill dp[1009][102][2];
+ill precompute[1009];
+
+ill fun(ill index, ill till, ill selected)
 {
-	int startx;
-	int starty;
-
-	int endx;
-	int endy;
-
-	node(int xx, int yy, int x, int y)
-	{
-		startx = xx;
-		starty = yy;
-		endx = x;
-		endy = y;
-	}
-};
-vector <struct node> data;
-
-
-int getendtime() {
-	int a,b,c,d;
-	S(a);	S(b);	S(c);	S(d);
-	data.push_back(node(a, b, c, d));
-	return abs(a-c) + abs(b-d);
-}
-
-
-
-string aa;
-int getstarttime()
-{
-	cin >> aa;
-	int x = (aa[0]-'0')*10 + ( aa[1]-'0');
-	int y = (aa[3]-'0')*10 + ( aa[4]-'0');
-	return (x*60) + y;
-}
-
-int getdistance(int sx, int sy, int px, int py)
-{
-	return abs(px-sx) + abs(py-sy);
-}
-
-vector < vector <int> > s;
-
-bool check(int x, int y)
-{
-	if (starttime[y] <= endtime[x]) {
-		return false;
-	}
-
-	int sum = getdistance(data[x].endx, data[x].endy, data[y].startx, data[y].starty);
-	if (sum + endtime[x] < starttime[y]) {
-		return true;
-	}
-	return false;
-}
-
-vector <bool> used;
-vector <int> ppair;
-
-bool fun(int x)
-{
-	if (used[x]) {
-		return false;
-	}
-	used[x] = true;
-
-	for (int i = 0; i < s[x].size(); i++) {
-		int y = s[x][i];
-		if (ppair[y] == -1 || fun(y)) {
-			ppair[y] = x;
-			return true;
+	// cout << index << " " << till << " " << selected << endl;
+	if (index == n) {
+		if (till == 0 && selected == 1) {
+			return 1;
 		}
-	}
-	return false;
-}
-void process()
-{
-	used.clear();	ppair.clear();
-	used.resize(n);	ppair.resize(n);
-	
-	fill(ppair.begin(), ppair.end(), -1);
-
-	for (int i = 0; i < n; i++) {
-		fill(used.begin(), used.end(), false);
-		fun(i);
+		return 0;
 	}
 
-	int sum = 0;
-	for (int i =0 ; i < n; i++) {
-		if (ppair[i] == -1) {
+	ill &result = dp[index][till][selected];
+	if (result != -1) {
+		return result;
+	}
+	result = 0;
+
+	if (selected == 1 && till == 0) {
+		ill left = n - index;
+		result = precompute[left-1]*9;
+		// cout << index << " --- > " << result << endl;
+		result = result%m;
+		return result;
+	}
+
+	for (ill i = 0; i <= 9; i++) {
+		if (i == 0 && index == n-1) {
 			continue;
 		}
-		sum++;
+		ill newtill = precompute[index]*i + till;
+		if (newtill >= k) newtill = newtill % k;
+
+		ill newselected = selected;
+		if (newselected == 0 && i != 0) {
+			newselected = 1;
+		}
+
+		result += fun(index+1, newtill, newselected);
+		if (result >= m) result = result%m;
 	}
-	printf("%d\n", n-sum);
+	return result;
+}
+
+void pre()
+{
+	ill till = 1;
+	for (ill i = 0; i < n; i++) {
+		precompute[i] = till;
+		till = till*10;
+		if (till >= m) {
+			till = till%m;
+		}
+	}
 }
 
 int main()
 {
-	freopen("input.txt", "r", stdin);
-	int t, ii =1;
-	S(t);
+  	freopen("input.txt", "r", stdin);
+ 
+ 	S1(n);	S(k);	S(m);
+ 	memset(dp, -1, sizeof(dp));
 
-	while (t--) {
-		printf("Case %d: ", ii++);
-		S(n);
-
-		starttime.clear();		endtime.clear();	data.clear();	s.clear();
-		s.resize(n);
-
-
-		for (int i = 0; i < n; i++) {
-			int x = getstarttime();
-			int y = getendtime() + x;
-
-			// cout << x << " " << y << endl;
-			starttime.push_back(x);
-			endtime.push_back(y);
-		}
-
-
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				if (i == j) {
-					continue;
-				}
-				if (check(i, j)) {
-					s[i].push_back(j);
-				}
-			}
-		}
-
-		process();
-
-	}
-
-
-	return 0;
+ 	pre();
+ 	cout << fun(0, 0, 0) << endl;
+  	return 0;
 }
+
