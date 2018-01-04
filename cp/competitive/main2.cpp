@@ -145,58 +145,27 @@ void getHeight(int n)
 }
 // End of lcp part
 
-int get (int n, int x)
+int n;
+vector <pair<int, int> > result;
+
+pair<int, int> makepair(int x, int y)
 {
-    if (x == 0) {
-        return 0;
-    }
-    int sum,i;
-    sum = 0;
-    F (i, 0, n) {
-        if (i+x > n) {
-            sum = sum + (n-i);
-            continue;
-        }
-        sum = sum + x;
-    }
-
-    //cout << x << " " << sum << endl;
-
-    return sum;
+    pair<int, int> p(x, y);
+    return p;
 }
 
 int main()
 {
     freopen ("input.txt", "r", stdin);
-    int t;
-    int ix;
-    ix = 1;
-    S (t);
-    while (t--) {
-
-        printf ("Case %d: ", ix++);
-        scanf ("%s", str);
-        int i,sum=0,n = strlen (str),a,b;
-
-        S (a);      S(b);
-
-        suffixSort(n);
-        getHeight(n);
-
  
-        sum = get (n, b) - get (n, a-1);
+    scanf("%s", str);
+    n = strlen(str);
 
-        F (i, 1, n) {
-            int xx = height[i];
-            if (xx >= a) {
-                xx = min (xx, b);
-                int yy = xx-a+1;
-                sum = sum - yy;
-            }
-        }
-        printf ("%d\n", sum);
+    suffixSort(n);
+    getHeight(n);
 
-    }
+    result.push_back(makepair(n, 1));
+    sort(result.begin(), result.end());
 
     return 0;
 }
