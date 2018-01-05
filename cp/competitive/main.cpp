@@ -27,95 +27,66 @@ using namespace std;
 
 #define ill long long int
 
-struct node
+int n,m,k;
+ill a[25];
+ill s[25][25];
+ill dp[1LL<<18][18];
+
+bool check(int mask, int x)
 {
-    ill x,y;
-    int index;
-    node(ill xx, ill yy)
-    {
-        x = xx;
-        y = yy;
-    }
-    node(ill xx, ill yy, int ind)
-    {
-        x = xx;
-        y = yy;
-        index = ind;
-    }
-};
-bool operator<(struct node a, struct node b)
-{
-    if (a.x != b.x) {
-        if (a.x < b.x) {
-            return true;
-        }
-        return false;
-    }
-    if (a.y < b.y) {
+    int now = mask | (1LL<<x);
+    if (now == mask) {
         return true;
     }
     return false;
 }
 
-vector <struct node> island;
-set <struct node> bridge;
+ill fun(int mask, int last, int till)
+{
+    if (till == m) {
+        return 0;
+    }
+    ill &result = dp[mask][last];
+    if (result != -1) {
+        return result;
+    }
 
-vector<struct node> req;
-int n,m;
-vector<int> result;
+    result = 0;
+    for (int i = 0; i < n; i++) {
+        if (check(mask, i)) {
+            continue;
+        }
+        result = max(result, a[i] + s[i][last] + fun(mask | (1LL<<i), i, till+1));
+    }
+    return result;
+}
 
 int main()
 {
-   // freopen ("input.txt", "r", stdin);
- 
-    cin >> n >> m;
-    result.resize(n-1);
-    for (int i = 0; i < n; i++) {
-        ill x,y;
-        cin >> x >> y;
-        island.push_back(node(x,y));
-    }
-
-    for (int i = 0; i < m; i++) {
-        ill x;  cin >> x;
-        bridge.insert(node(x, -1L, i));
-    }
-
-
-    for (int i = 1; i < n; i++) {
-        ill mini = island[i].x - island[i-1].y;
-        ill maxi = island[i].y - island[i-1].x;
-        req.push_back(node(mini, maxi, i));
-    }
-
-    sort(req.begin(), req.end());
-    reverse(req.begin(), req.end());
+    freopen ("input.txt", "r", stdin);
     
-    for (int i = 0; i < req.size(); i++) {
-        // cout << req[i].x << " " << req[i].y << endl;
-        ill mini = req[i].x;    ill maxi = req[i].y;
+    memset(s, 0, sizeof(s));
+    cin >> n >> m >> k;
+    for (int i = 0; i < n; i++) cin >> a[i];
 
-        struct node now = node(maxi, -1);
-        set<struct node> :: iterator it;
-        it = upper_bound(bridge.begin(), bridge.end(), now);
-        it--;
-        struct node brid = (*it);
-        // cout << mini << " " << maxi << " ---> " << brid.x << endl;
-        if (brid.x >= mini && brid.x <= maxi) {
-            result[req[i].index - 1] = brid.index + 1;
-            bridge.erase(brid);   
-            continue;
-        }
-        cout << "No" << endl;
-        return 0;
+    for (int i = 0; i < k; i++) {
+        int x,y;
+        ill z;
+        cin >> x >> y >> z;
+        x--;    y--;
+
+        s[x][y] = z;
+    } 
+
+    memset(dp, -1, sizeof(dp));
+
+    ill result = 0;
+    for (int i = 0; i < n; i++) {
+        result = max(result, a[i] + fun(1LL<<i, i, 1));
     }
 
+    cout << result << endl;
 
-    cout << "Yes" << endl;
-    for (int i = 0; i < result.size(); i++) {
-        cout << result[i] << " ";
-    }
-    cout << endl;
     return 0;
 }
 
