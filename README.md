@@ -1676,6 +1676,7 @@ You're never really done.
     - [x] MD5 basics
     - [x] SHA
     - [x] [Simhashing (hopefully) made simple](http://ferd.ca/simhashing-hopefully-made-simple.html)
+    - [x] [Simhash basics](http://matpalm.com/resemblance/simhash/)
 
 - ### van Emde Boas Trees
     - [ ] [Divide & Conquer: van Emde Boas Trees (video)](https://www.youtube.com/watch?v=hmReJCupbNU&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp&index=6)
