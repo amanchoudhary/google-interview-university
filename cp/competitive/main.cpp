@@ -25,72 +25,50 @@
 
 using namespace std;
 
-#define ill long long int
+string s;
+int k;
 
-int n,m,k;
-ill a[25];
-ill s[25][25];
-ill dp[1LL<<18][18];
+int hasharray[30];
 
-bool check(int mask, int x)
+int adjuststart(int start, int end)
 {
-    int now = mask | (1LL<<x);
-    if (now == mask) {
-        return true;
-    }
-    return false;
-}
-
-ill fun(int mask, int last, int till)
-{
-    if (till == m) {
-        return 0;
-    }
-    ill &result = dp[mask][last];
-    if (result != -1) {
-        return result;
-    }
-
-    result = 0;
-    for (int i = 0; i < n; i++) {
-        if (check(mask, i)) {
-            continue;
+    for (int i = start; i <= end; i++) {
+        int x = (s[i] - 'a');
+        hasharray[x]--;
+        if (hasharray[x] == 0) {
+            return i+1;
         }
-        result = max(result, a[i] + s[i][last] + fun(mask | (1LL<<i), i, till+1));
     }
-    return result;
+    return 100000;
 }
 
 int main()
 {
-    freopen ("input.txt", "r", stdin);
-    
-    memset(s, 0, sizeof(s));
-    cin >> n >> m >> k;
-    for (int i = 0; i < n; i++) cin >> a[i];
 
-    for (int i = 0; i < k; i++) {
-        int x,y;
-        ill z;
-        cin >> x >> y >> z;
-        x--;    y--;
+    memset(hasharray, 0, sizeof(hasharray));
+ 
+    s = "aaabbb";   k = 3;
+    int i, till = 0;
+    int start = 0;
+    int result = 0;
+    for (i = 0; i < s.size(); i++) {
+        int x = (s[i] - 'a');
+        hasharray[x]++;
+        if (hasharray[x] == 1) {
+            till++;
+        }
 
-        s[x][y] = z;
-    } 
+        if (till == k) {
+            result = max(result, i + 1 - start);
+            continue;
+        }
 
-    memset(dp, -1, sizeof(dp));
+        if (till < k) {
+            continue;
+        }
 
-    ill result = 0;
-    for (int i = 0; i < n; i++) {
-        result = max(result, a[i] + fun(1LL<<i, i, 1));
+        start = adjuststart(start, i);
     }
-
     cout << result << endl;
-
     return 0;
 }
-
-
-
-
-// problem: http://www.lightoj.com/volume_showproblem.php?problem=1314

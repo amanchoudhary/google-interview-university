@@ -1524,7 +1524,7 @@ You're never really done.
     - [ ] [tcpdump](https://danielmiessler.com/study/tcpdump/)
 
 - ### Information theory (videos)
-    - [ ] [Khan Academy](https://www.khanacademy.org/computing/computer-science/informationtheory)
+    - [x] [Khan Academy](https://www.khanacademy.org/computing/computer-science/informationtheory)
     - [ ] more about Markov processes:
         - [ ] [Core Markov Text Generation](https://www.coursera.org/learn/data-structures-optimizing-performance/lecture/waxgx/core-markov-text-generation)
         - [ ] [Core Implementing Markov Text Generation](https://www.coursera.org/learn/data-structures-optimizing-performance/lecture/gZhiC/core-implementing-markov-text-generation)
@@ -1547,7 +1547,7 @@ You're never really done.
 - ### Cryptography
     - also see videos below
     - make sure to watch information theory videos first
-    - [ ] [Khan Academy Series](https://www.khanacademy.org/computing/computer-science/cryptography)
+    - [x ] [Khan Academy Series](https://www.khanacademy.org/computing/computer-science/cryptography)
     - [ ] [Cryptography: Hash Functions](https://www.youtube.com/watch?v=KqqOXndnvic&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp&index=30)
     - [ ] [Cryptography: Encryption](https://www.youtube.com/watch?v=9TNI2wHmaeI&index=31&list=PLUl4u3cNGP6317WaSNfmCvGym2ucw3oGp)
 
