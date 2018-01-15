@@ -1033,7 +1033,7 @@ You'll get more graph practice in Skiena's book (see Books section below) and th
     - [x] [Transactions Across Datacenters (video)](https://www.youtube.com/watch?v=srOgpXECblk)
     - [x] [A plain English introduction to CAP Theorem](http://ksat.me/a-plain-english-introduction-to-cap-theorem/)
     - [ ] Paxos Consensus algorithm:
-        - [short video](https://www.youtube.com/watch?v=s8JqcZtvnsM)
+        - [x] [short video](https://www.youtube.com/watch?v=s8JqcZtvnsM)
         - [extended video with use case and multi-paxos](https://www.youtube.com/watch?v=JEpsBg0AO6o)
         - [paper](http://research.microsoft.com/en-us/um/people/lamport/pubs/paxos-simple.pdf)
     - [ ] [Consistent Hashing](http://www.tom-e-white.com/2007/11/consistent-hashing.html)
